@@ -19,6 +19,7 @@
 		D21D7C7F28AA67B10015B747 /* RootTabType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C7E28AA67B10015B747 /* RootTabType.swift */; };
 		D21D7C8328AA69940015B747 /* RecruitmentMainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8228AA69940015B747 /* RecruitmentMainScreen.swift */; };
 		D21D7C8628AA7C290015B747 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8528AA7C290015B747 /* Color.swift */; };
+		D21D7C8928AA82330015B747 /* Recruitments.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8828AA82330015B747 /* Recruitments.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		D21D7C7E28AA67B10015B747 /* RootTabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabType.swift; sourceTree = "<group>"; };
 		D21D7C8228AA69940015B747 /* RecruitmentMainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitmentMainScreen.swift; sourceTree = "<group>"; };
 		D21D7C8528AA7C290015B747 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		D21D7C8828AA82330015B747 /* Recruitments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recruitments.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 		D21D7C7628AA63930015B747 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D21D7C8728AA82250015B747 /* Recruitment */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,6 +198,14 @@
 				D21D7C8528AA7C290015B747 /* Color.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		D21D7C8728AA82250015B747 /* Recruitment */ = {
+			isa = PBXGroup;
+			children = (
+				D21D7C8828AA82330015B747 /* Recruitments.swift */,
+			);
+			path = Recruitment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,6 +350,7 @@
 				D21D7C4B28AA61FB0015B747 /* RecruitingApp.swift in Sources */,
 				D21D7C8328AA69940015B747 /* RecruitmentMainScreen.swift in Sources */,
 				D21D7C8628AA7C290015B747 /* Color.swift in Sources */,
+				D21D7C8928AA82330015B747 /* Recruitments.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
