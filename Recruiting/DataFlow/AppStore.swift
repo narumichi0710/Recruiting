@@ -9,9 +9,13 @@ import ComposableArchitecture
 enum AppStore {
 
     struct State: Equatable {
+        /// ルートタブの状態を管理しているState
+        var selectedRootTab: RootTabType = .recruitment
     }
 
     enum Action: Equatable {
+        /// ルートタブ変更アクション
+        case changedRootTab(RootTabType)
     }
 
     struct Environment {
@@ -19,7 +23,9 @@ enum AppStore {
 
     static let reducer = Reducer<State, Action, Environment> { state, action, env in
         switch action {
-        default: return .none
+        case .changedRootTab(let type):
+            state.selectedRootTab = type
+            return .none
         }
     }
 }

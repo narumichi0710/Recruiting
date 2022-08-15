@@ -16,6 +16,7 @@
 		D21D7C6828AA61FC0015B747 /* RecruitingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C6728AA61FC0015B747 /* RecruitingUITestsLaunchTests.swift */; };
 		D21D7C7A28AA644A0015B747 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D21D7C7928AA644A0015B747 /* ComposableArchitecture */; };
 		D21D7C7C28AA65990015B747 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C7B28AA65990015B747 /* AppStore.swift */; };
+		D21D7C7F28AA67B10015B747 /* RootTabType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C7E28AA67B10015B747 /* RootTabType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		D21D7C6528AA61FC0015B747 /* RecruitingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitingUITests.swift; sourceTree = "<group>"; };
 		D21D7C6728AA61FC0015B747 /* RecruitingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitingUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D21D7C7B28AA65990015B747 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		D21D7C7E28AA67B10015B747 /* RootTabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,11 +159,20 @@
 		D21D7C7728AA639C0015B747 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				D21D7C7D28AA67900015B747 /* Component */,
 				D21D7C4E28AA61FC0015B747 /* Assets.xcassets */,
 				D21D7C4C28AA61FB0015B747 /* RootView.swift */,
 				D21D7C4A28AA61FB0015B747 /* RecruitingApp.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		D21D7C7D28AA67900015B747 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D21D7C7E28AA67B10015B747 /* RootTabType.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D21D7C7C28AA65990015B747 /* AppStore.swift in Sources */,
+				D21D7C7F28AA67B10015B747 /* RootTabType.swift in Sources */,
 				D21D7C4D28AA61FB0015B747 /* RootView.swift in Sources */,
 				D21D7C4B28AA61FB0015B747 /* RecruitingApp.swift in Sources */,
 			);
