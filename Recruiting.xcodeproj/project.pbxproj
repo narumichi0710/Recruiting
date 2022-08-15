@@ -15,6 +15,7 @@
 		D21D7C6628AA61FC0015B747 /* RecruitingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C6528AA61FC0015B747 /* RecruitingUITests.swift */; };
 		D21D7C6828AA61FC0015B747 /* RecruitingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C6728AA61FC0015B747 /* RecruitingUITestsLaunchTests.swift */; };
 		D21D7C7A28AA644A0015B747 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D21D7C7928AA644A0015B747 /* ComposableArchitecture */; };
+		D21D7C7C28AA65990015B747 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C7B28AA65990015B747 /* AppStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		D21D7C6128AA61FC0015B747 /* RecruitingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecruitingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D21D7C6528AA61FC0015B747 /* RecruitingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitingUITests.swift; sourceTree = "<group>"; };
 		D21D7C6728AA61FC0015B747 /* RecruitingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitingUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D21D7C7B28AA65990015B747 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 		D21D7C7428AA637C0015B747 /* DataFlow */ = {
 			isa = PBXGroup;
 			children = (
+				D21D7C7B28AA65990015B747 /* AppStore.swift */,
 			);
 			path = DataFlow;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D21D7C7C28AA65990015B747 /* AppStore.swift in Sources */,
 				D21D7C4D28AA61FB0015B747 /* RootView.swift in Sources */,
 				D21D7C4B28AA61FB0015B747 /* RecruitingApp.swift in Sources */,
 			);
