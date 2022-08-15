@@ -28,7 +28,7 @@ protocol APIRequest {
 
 extension APIRequest {
     var baseURL: URL {
-        return URL(string: "https://api.github.com/")!
+        return URL(string: "https://www.wantedly.com/api/v1/")!
     }
     var headerFields: [String: String] {
         return ["Accept": "application/json"]
