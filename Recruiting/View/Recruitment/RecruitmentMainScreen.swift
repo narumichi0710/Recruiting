@@ -33,13 +33,8 @@ struct RecruitmentMainScreen: View {
             send: RecruitmentStore.Action.presentRecDetail(nil)
         )){
             // 募集詳細画面に遷移
-            RecruitmentDetailScreen(
-                selectedCell: viewStore.binding(
-                    get: \.selectedCell,
-                    send: RecruitmentStore.Action.presentRecDetail(nil)
-                )
-            )
-            .navigationBarHidden(true)
+            RecruitmentDetailScreen(viewStore: viewStore)
+                .navigationBarHidden(true)
         }
     }
 
@@ -69,7 +64,7 @@ struct RecruitmentMainScreen: View {
                 ScrollView {
                     VStack {
                         ForEach(items) { cell in
-                            RecruitmentCell(title: cell.title, company: cell.company, image: cell.image)
+                            RecruitmentCell(cell: cell)
                                 .onTapGesture {
                                     viewStore.send(.presentRecDetail(cell))
                                 }

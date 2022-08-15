@@ -3,23 +3,48 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 // TODO: 実装
 // MARK: 募集詳細画面
 struct RecruitmentDetailScreen: View {
-    /// 選択中の募集
-    @Binding var selectedCell: Selection<RecruitmentModel.Cell>
+    let viewStore: ViewStore<RecruitmentStore.State, RecruitmentStore.Action>
 
     var body: some View {
         VStack {
-            Button {
-                selectedCell.isSelected.toggle()
-            } label: {
-                Text("Back")
+            HStack {
+                Button {
+                    viewStore.send(.presentRecDetail(nil))
+                } label: {
+                    Text("Back")
+                }
+                Spacer()
+            }
+            .padding()
+
+            if let detail = viewStore.recruitmentsDetail, let selectedCell = viewStore.selectedCell.selectdItem {
+
+                RecruitmentCell(cell: selectedCell)
+                    .padding()
+
+                Divider()
+
+
+                Text(detail.whatDescription)
+                    .padding()
+                Text(detail.whyDescription)
+                    .padding()
+                Text(detail.howDescription)
+                    .padding()
             }
 
-        }
+            Spacer()
 
+        }
+        .onAppear {
+            // 募集詳細データの取得
+            viewStore.send(.getRecruitmentDetail)
+        }
     }
 }
 
