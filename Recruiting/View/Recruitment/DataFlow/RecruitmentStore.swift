@@ -29,10 +29,6 @@ enum RecruitmentStore {
     static let reducer = Reducer<State, Action, AppStore.Environment> { state, action, env in
             switch action {
             case .response(let result):
-                // MARK: モックデータ 後で削除
-                state.recruitments = Recruitments.mockRecruitments
-                return .none
-
                 // 募集一覧取得レスポンス
                 switch result {
                 case .success(let response):
