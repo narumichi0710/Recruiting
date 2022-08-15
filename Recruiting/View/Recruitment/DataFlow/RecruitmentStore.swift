@@ -12,6 +12,8 @@ enum RecruitmentStore {
             struct CancelID: Hashable {
                 let id = String(describing: State.self)
             }
+            /// 検索ワード
+            var searchWord: String = ""
             /// 募集一覧
             var recruitments: Recruitments? = nil
         }
@@ -19,7 +21,9 @@ enum RecruitmentStore {
             /// レスポンス
             case response(Result<Recruitments, APIError>)
             /// 募集一覧取得アクション
-            case getRecruitments(String)
+            case getRecruitments
+            /// 検索ワード変更アクション
+            case changedSearchWord(String)
         }
 
     static let reducer = Reducer<State, Action, AppStore.Environment> { state, action, env in
@@ -38,13 +42,19 @@ enum RecruitmentStore {
                     // TODO:
                     return .none
                 }
-            case .getRecruitments(let value):
+
+            case .getRecruitments:
                 // 募集一覧取得処理
                 return env.recruitmentClient.recruitments(
-                    .init(searchWord: "aaa", pageNo: 1)
+                    .init(searchWord: state.searchWord, pageNo: 1)
                 )
                 .catchToEffect(Action.response)
                 .cancellable(id: State.CancelID())
+
+            case .changedSearchWord(let value):
+                // 検索ワード更新処理
+                state.searchWord = value
+                return .none
             }
         }
 
