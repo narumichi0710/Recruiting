@@ -46,7 +46,47 @@ extension APIRequest {
 
     /// API呼び出し処理
     func request() -> AnyPublisher<Response, APIError> {
-        // TODO: 実装
+        let urlRequest = try! getUrlRequest()
+
+        return URLSession.shared
+            .dataTaskPublisher(for: urlRequest)
+            .tryMap { element -> Data in
+                // TODO: 後で実装
+                return element.data
+            }
+            .decode(type: Response.self, decoder: JSONDecoder())
+            .mapError { data in
+
+                // TODO: 後で実装
+                data as! APIError
+            }
+            .eraseToAnyPublisher()
+    }
+
+    /// urlRequestの生成処理
+    /// - Returns: URLRequest
+    func getUrlRequest() throws -> URLRequest {
+        // Pathの追加
+        let url = baseURL.appendingPathComponent(path)
+
+        // urlComponentの生成
+        guard var component = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            throw APIError.error
+        }
+
+        // クエリパラメータの追加
+        component.queryItems = queryParameters.compactMap {
+            URLQueryItem(name: $0.key, value: "\($0.value)")
+        }
+
+        // urlRequestの生成
+        guard var urlRequest = component.url.map({ URLRequest(url: $0) }) else {
+            throw APIError.error
+        }
+        urlRequest.httpMethod = method.localize
+        urlRequest.allHTTPHeaderFields = headerFields
+
+        return urlRequest
     }
 }
 
@@ -75,6 +115,11 @@ enum HTTPMethodType: String {
 }
 
 
+// TODO: 後で実装
 enum APIError: Error, Equatable {
-    // TODO: 実装
+    case error
+
+    var localizedDescription: String {
+        return "error"
+    }
 }
