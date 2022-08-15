@@ -28,7 +28,12 @@ struct RootView: View {
             /// タブコンテント
             switch viewStore.selectedRootTab {
             case .recruitment:
-                RecruitmentMainScreen()
+                RecruitmentMainScreen(
+                    store: store.scope(
+                        state: \.recruitmentState,
+                        action: AppStore.Action.recruitment
+                    )
+                )
             case .messege:
                 VStack {
                     Spacer()

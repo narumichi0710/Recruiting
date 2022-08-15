@@ -12,7 +12,9 @@ struct RecruitingApp: App {
             RootView(store: Store(
                 initialState: AppStore.State(),
                 reducer: AppStore.reducer,
-                environment: AppStore.Environment()
+                environment: AppStore.Environment(
+                    recruitmentClient: .live
+                )
             ))
         }
     }
