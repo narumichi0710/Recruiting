@@ -53,18 +53,26 @@ extension RecruitmentModel {
 // MARK: 募集詳細APIモデル
 extension RecruitmentModel {
     struct Detail: Decodable, Equatable {
-        var title: String
-        var company: Company
-        var image: Image
-        var whatDescription: String
-        var whyDescription: String
-        var howDescription: String
+        var item: Data
+
+        struct Data: Decodable, Equatable {
+            var title: String
+            var company: Company
+            var image: Image
+            var whatDescription: String
+            var whyDescription: String
+            var howDescription: String
+
+            private enum CodingKeys: String, CodingKey {
+                case title, company, image
+                case whatDescription = "what_description"
+                case whyDescription = "why_description"
+                case howDescription = "how_description"
+            }
+        }
 
         private enum CodingKeys: String, CodingKey {
-            case title, company, image
-            case whatDescription = "what_description"
-            case whyDescription = "why_description"
-            case howDescription = "how_description"
+            case item = "data"
         }
     }
 }
@@ -92,11 +100,13 @@ extension RecruitmentModel {
     )
     // MARK: 募集詳細モックデータ
     static let mockDetail = Detail(
-        title: "sample1",
-        company: Company(name: "sampleCompany1"),
-        image: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/5514165/original/43e51376-db16-4eb3-88fd-de8ead793416?1654489801"),
-        whatDescription: "sampleWhatDescription",
-        whyDescription: "sampleWhyDescription",
-        howDescription: "sampleHowDescription"
+        item: Detail.Data(
+            title: "sample1",
+            company: Company(name: "sampleCompany1"),
+            image: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/5514165/original/43e51376-db16-4eb3-88fd-de8ead793416?1654489801"),
+            whatDescription: "sampleWhatDescription",
+            whyDescription: "sampleWhyDescription",
+            howDescription: "sampleHowDescription"
+        )
     )
 }

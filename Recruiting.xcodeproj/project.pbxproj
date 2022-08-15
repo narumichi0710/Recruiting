@@ -19,7 +19,7 @@
 		D21D7C7F28AA67B10015B747 /* RootTabType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C7E28AA67B10015B747 /* RootTabType.swift */; };
 		D21D7C8328AA69940015B747 /* RecruitmentMainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8228AA69940015B747 /* RecruitmentMainScreen.swift */; };
 		D21D7C8628AA7C290015B747 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8528AA7C290015B747 /* Color.swift */; };
-		D21D7C8928AA82330015B747 /* Recruitment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8828AA82330015B747 /* Recruitment.swift */; };
+		D21D7C8928AA82330015B747 /* RecruitmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8828AA82330015B747 /* RecruitmentModel.swift */; };
 		D21D7C8C28AA8D320015B747 /* RecruitmentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8B28AA8D320015B747 /* RecruitmentStore.swift */; };
 		D21D7C8E28AA90400015B747 /* RecruitmentClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8D28AA90400015B747 /* RecruitmentClient.swift */; };
 		D21D7C9028AA91630015B747 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8F28AA91630015B747 /* APIRequest.swift */; };
@@ -60,7 +60,7 @@
 		D21D7C7E28AA67B10015B747 /* RootTabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabType.swift; sourceTree = "<group>"; };
 		D21D7C8228AA69940015B747 /* RecruitmentMainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitmentMainScreen.swift; sourceTree = "<group>"; };
 		D21D7C8528AA7C290015B747 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		D21D7C8828AA82330015B747 /* Recruitment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recruitment.swift; sourceTree = "<group>"; };
+		D21D7C8828AA82330015B747 /* RecruitmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitmentModel.swift; sourceTree = "<group>"; };
 		D21D7C8B28AA8D320015B747 /* RecruitmentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitmentStore.swift; sourceTree = "<group>"; };
 		D21D7C8D28AA90400015B747 /* RecruitmentClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitmentClient.swift; sourceTree = "<group>"; };
 		D21D7C8F28AA91630015B747 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 		D21D7C8728AA82250015B747 /* Recruitment */ = {
 			isa = PBXGroup;
 			children = (
-				D21D7C8828AA82330015B747 /* Recruitment.swift */,
+				D21D7C8828AA82330015B747 /* RecruitmentModel.swift */,
 			);
 			path = Recruitment;
 			sourceTree = "<group>";
@@ -390,7 +390,7 @@
 				D21D7C8328AA69940015B747 /* RecruitmentMainScreen.swift in Sources */,
 				D21D7C8628AA7C290015B747 /* Color.swift in Sources */,
 				D21D7C9028AA91630015B747 /* APIRequest.swift in Sources */,
-				D21D7C8928AA82330015B747 /* Recruitment.swift in Sources */,
+				D21D7C8928AA82330015B747 /* RecruitmentModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

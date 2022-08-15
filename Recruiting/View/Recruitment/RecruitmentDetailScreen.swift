@@ -22,13 +22,12 @@ struct RecruitmentDetailScreen: View {
             }
             .padding()
 
-            if let detail = viewStore.recruitmentsDetail, let selectedCell = viewStore.selectedCell.selectdItem {
+            if let detail = viewStore.recruitmentsDetail?.item, let selectedCell = viewStore.selectedCell.selectdItem {
 
                 RecruitmentCell(cell: selectedCell)
                     .padding()
 
                 Divider()
-
 
                 Text(detail.whatDescription)
                     .padding()
