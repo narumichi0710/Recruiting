@@ -42,6 +42,7 @@ extension RecruitmentModel {
 
     struct Company: Decodable, Equatable {
         var name: String
+        var avatar: Image
     }
 
     struct Image: Decodable, Equatable {
@@ -85,15 +86,27 @@ extension RecruitmentModel {
         metaDeta: Meta(totalObjects: 100, perPage: 20, totalPages: 10),
         items: [
             Cell(
-                id: 1, title: "sample1", company: Company(name: "sampleCompany1"),
+                id: 1, title: "sample1",
+                company: Company(
+                    name: "sampleCompany1",
+                    avatar: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/7052304/original/49100b17-5866-4cec-b50b-a37ea73565e9?1638782149")
+                ),
                 image: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/5514165/original/43e51376-db16-4eb3-88fd-de8ead793416?1654489801")
             ),
             Cell(
-                id: 2, title: "sample2", company: Company(name: "sampleCompany2"),
+                id: 2, title: "sample2",
+                company: Company(
+                    name: "sampleCompany1",
+                    avatar: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/7052304/original/49100b17-5866-4cec-b50b-a37ea73565e9?1638782149")
+                ),
                 image: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/1843922/original/9d40990d-65aa-4dda-9a2b-2667f7ea373a?1507811728")
             ),
             Cell(
-                id: 3, title: "sample3", company: Company(name: "sampleCompany3"),
+                id: 3, title: "sample3",
+                company: Company(
+                    name: "sampleCompany1",
+                    avatar: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/7052304/original/49100b17-5866-4cec-b50b-a37ea73565e9?1638782149")
+                ),
                 image: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/5634663/original/b612c8fa-a7b9-4e3a-9a48-5d6f7fb3bbcf?1658905562")
             )
         ]
@@ -102,7 +115,10 @@ extension RecruitmentModel {
     static let mockDetail = Detail(
         item: Detail.Data(
             title: "sample1",
-            company: Company(name: "sampleCompany1"),
+            company: Company(
+                name: "sampleCompany1",
+                avatar: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/7052304/original/49100b17-5866-4cec-b50b-a37ea73565e9?1638782149")
+            ),
             image: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/5514165/original/43e51376-db16-4eb3-88fd-de8ead793416?1654489801"),
             whatDescription: "sampleWhatDescription",
             whyDescription: "sampleWhyDescription",

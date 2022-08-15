@@ -8,7 +8,7 @@ struct RecruitmentCell: View {
     let cell: RecruitmentModel.Cell
 
     var body: some View {
-        HStack {
+        VStack(spacing: 8) {
             // 会社写真
             if let image = cell.image.original {
                 AsyncImage(url: URL(string: image)) { image in
@@ -16,21 +16,36 @@ struct RecruitmentCell: View {
                 } placeholder: {
                     ProgressView()
                 }
-                .clipShape(Circle())
-                .frame(width: 50, height: 50)
-                .padding()
+                .aspectRatio(contentMode: .fill)
             }
-            Spacer()
-
-            // 会社情報
-            VStack {
+            // タイトル
+            HStack {
                 Text(cell.title)
-                    .padding()
+                    .font(.body)
+                Spacer()
+            }
 
-                Text(cell.company.name)
-                    .padding()
+            if let image = cell.company.avatar.original {
+                HStack {
+                    // サムネイル
+                    AsyncImage(url: URL(string: image)) { image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .clipShape(Circle())
+                    .frame(width: 32, height: 32)
+
+                    // 会社名
+                    Text(cell.company.name)
+                        .font(.subheadline)
+                        .foregroundColor(Color.secondary)
+
+                    Spacer()
+                }
             }
         }
+        .padding()
         .contentShape(Rectangle())
     }
 }

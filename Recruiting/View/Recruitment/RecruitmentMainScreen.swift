@@ -41,13 +41,9 @@ struct RecruitmentMainScreen: View {
     /// コンテント
     private func content(_ viewStore: ViewStore<RecruitmentStore.State, RecruitmentStore.Action>) -> some View {
         VStack {
-            // ヘッダー
-            Text("募集一覧")
-                .font(.title)
-
             // 検索項目
             TextField(
-                "募集検索",
+                "キーワード",
                 text: viewStore.binding(
                     get: \.searchWord, send: RecruitmentStore.Action.changedSearchWord
                 )
