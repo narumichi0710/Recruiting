@@ -12,7 +12,7 @@ import ComposableArchitecture
 
 // MARK: 募集機能APIClient
 struct RecruitmentClient {
-    var recruitments: (RecruitmentRequest) -> Effect<Recruitments, APIError>
+    var recruitments: (RecruitmentRequest) -> Effect<Recruitment.List, APIError>
 }
 
 extension RecruitmentClient {
@@ -37,7 +37,7 @@ struct RecruitmentRequest: APIRequest {
         ["q": searchWord, "page": "\(pageNo)"]
     }
     /// パブリッシャー
-    var publisher: AnyPublisher<Recruitments, APIError> {
+    var publisher: AnyPublisher<Recruitment.List, APIError> {
         request()
     }
 }

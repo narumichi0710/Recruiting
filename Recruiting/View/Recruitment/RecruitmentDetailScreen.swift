@@ -8,7 +8,7 @@ import SwiftUI
 // MARK: 募集詳細画面
 struct RecruitmentDetailScreen: View {
     /// 選択中の募集
-    @Binding var selectedCell: Selection<Recruitment>
+    @Binding var selectedCell: Selection<Recruitment.Cell>
 
     var body: some View {
         VStack {

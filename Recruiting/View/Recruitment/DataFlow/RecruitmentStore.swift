@@ -15,19 +15,19 @@ enum RecruitmentStore {
             /// 検索ワード.
             var searchWord: String = ""
             /// 募集一覧.
-            var recruitments: Recruitments? = nil
+            var recruitments: Recruitment.List? = nil
             /// 選択中の募集.
-            var selectedCell: Selection = Selection<Recruitment>(nil)
+            var selectedCell: Selection = Selection<Recruitment.Cell>(nil)
         }
         enum Action: Equatable {
             /// レスポンス.
-            case response(Result<Recruitments, APIError>)
+            case response(Result<Recruitment.List, APIError>)
             /// 募集一覧取得アクション.
             case getRecruitments
             /// 検索ワード変更アクション.
             case changedSearchWord(String)
             /// 募集詳細画面アクション.
-            case presentRecDetail(Recruitment?)
+            case presentRecDetail(Recruitment.Cell?)
         }
 
     static let reducer = Reducer<State, Action, AppStore.Environment> { state, action, env in
@@ -59,9 +59,9 @@ enum RecruitmentStore {
             case .presentRecDetail(let selectedCell):
                 // 募集詳細画面遷移処理.
                 if selectedCell == nil {
-                    state.selectedCell = Selection<Recruitment>(nil)
+                    state.selectedCell = Selection<Recruitment.Cell>(nil)
                 } else {
-                    state.selectedCell = Selection<Recruitment>(selectedCell)
+                    state.selectedCell = Selection<Recruitment.Cell>(selectedCell)
                 }
                 return .none
             }

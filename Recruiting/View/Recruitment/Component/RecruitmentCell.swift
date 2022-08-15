@@ -6,7 +6,7 @@ import SwiftUI
 // TODO: 後でUI修正
 // 募集セル
 struct RecruitmentCell: View {
-    let cell: Recruitment
+    let cell: Recruitment.Cell
 
     var body: some View {
         HStack {
