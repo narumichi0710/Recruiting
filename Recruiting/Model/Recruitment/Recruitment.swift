@@ -6,10 +6,10 @@ import Foundation
 import ComposableArchitecture
 
 // MARK: 募集機能
-enum Recruitment {}
+enum RecruitmentModel {}
 
 // MARK: 募集一覧APIモデル
-extension Recruitment {
+extension RecruitmentModel {
 
     struct List: Decodable, Equatable {
         var metaDeta: Meta
@@ -51,7 +51,7 @@ extension Recruitment {
 
 
 // MARK: 募集詳細APIモデル
-extension Recruitment {
+extension RecruitmentModel {
     struct Detail: Decodable, Equatable {
         var title: String
         var company: Company
@@ -71,9 +71,9 @@ extension Recruitment {
 
 
 
-// MARK: 募集一覧モックデータ
-extension Recruitment {
-    static let mockRecruitments = List(
+extension RecruitmentModel {
+    // MARK: 募集一覧モックデータ
+    static let mockList = List(
         metaDeta: Meta(totalObjects: 100, perPage: 20, totalPages: 10),
         items: [
             Cell(
@@ -89,5 +89,14 @@ extension Recruitment {
                 image: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/5634663/original/b612c8fa-a7b9-4e3a-9a48-5d6f7fb3bbcf?1658905562")
             )
         ]
+    )
+    // MARK: 募集詳細モックデータ
+    static let mockDetail = Detail(
+        title: "sample1",
+        company: Company(name: "sampleCompany1"),
+        image: Image(original: "https://d2v9k5u4v94ulw.cloudfront.net/assets/images/5514165/original/43e51376-db16-4eb3-88fd-de8ead793416?1654489801"),
+        whatDescription: "sampleWhatDescription",
+        whyDescription: "sampleWhyDescription",
+        howDescription: "sampleHowDescription"
     )
 }

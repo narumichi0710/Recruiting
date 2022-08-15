@@ -6,12 +6,14 @@ import SwiftUI
 // TODO: 後でUI修正
 // 募集セル
 struct RecruitmentCell: View {
-    let cell: Recruitment.Cell
+    var title: String
+    var company: RecruitmentModel.Company
+    var image: RecruitmentModel.Image
 
     var body: some View {
         HStack {
             // 会社写真
-            if let image = cell.image.original {
+            if let image = image.original {
                 AsyncImage(url: URL(string: image)) { image in
                     image.resizable()
                 } placeholder: {
@@ -25,10 +27,10 @@ struct RecruitmentCell: View {
 
             // 会社情報
             VStack {
-                Text(cell.title)
+                Text(title)
                     .padding()
 
-                Text(cell.company.name)
+                Text(company.name)
                     .padding()
             }
         }

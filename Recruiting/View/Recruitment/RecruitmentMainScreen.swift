@@ -69,7 +69,7 @@ struct RecruitmentMainScreen: View {
                 ScrollView {
                     VStack {
                         ForEach(items) { cell in
-                            RecruitmentCell(cell: cell)
+                            RecruitmentCell(title: cell.title, company: cell.company, image: cell.image)
                                 .onTapGesture {
                                     viewStore.send(.presentRecDetail(cell))
                                 }
