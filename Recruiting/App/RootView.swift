@@ -11,9 +11,12 @@ struct RootView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             GeometryReader { geo in
-                ZStack {
-                    // コンテント
-                    content(viewStore: viewStore, viewSize: geo.size)
+                NavigationView {
+                    ZStack {
+                        // コンテント
+                        content(viewStore: viewStore, viewSize: geo.size)
+                    }
+                    .navigationBarHidden(true)
                 }
             }
         }

@@ -28,7 +28,19 @@ struct RecruitmentMainScreen: View {
 
     /// ナビゲーション
     private func navigation(_ viewStore: ViewStore<RecruitmentStore.State, RecruitmentStore.Action>) -> some View {
-        EmptyView()
+        NavigationLink("", isActive: viewStore.binding(
+            get: \.selectedCell.isSelected,
+            send: RecruitmentStore.Action.presentRecDetail(nil)
+        )){
+            // 募集詳細画面に遷移
+            RecruitmentDetailScreen(
+                selectedCell: viewStore.binding(
+                    get: \.selectedCell,
+                    send: RecruitmentStore.Action.presentRecDetail(nil)
+                )
+            )
+            .navigationBarHidden(true)
+        }
     }
 
     /// コンテント
@@ -58,6 +70,9 @@ struct RecruitmentMainScreen: View {
                     VStack {
                         ForEach(items) { cell in
                             RecruitmentCell(cell: cell)
+                                .onTapGesture {
+                                    viewStore.send(.presentRecDetail(cell))
+                                }
 
                             Divider()
                         }
