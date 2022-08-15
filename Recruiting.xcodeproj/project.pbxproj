@@ -17,6 +17,8 @@
 		D21D7C7A28AA644A0015B747 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D21D7C7928AA644A0015B747 /* ComposableArchitecture */; };
 		D21D7C7C28AA65990015B747 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C7B28AA65990015B747 /* AppStore.swift */; };
 		D21D7C7F28AA67B10015B747 /* RootTabType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C7E28AA67B10015B747 /* RootTabType.swift */; };
+		D21D7C8328AA69940015B747 /* RecruitmentMainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8228AA69940015B747 /* RecruitmentMainScreen.swift */; };
+		D21D7C8628AA7C290015B747 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D7C8528AA7C290015B747 /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		D21D7C6728AA61FC0015B747 /* RecruitingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitingUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D21D7C7B28AA65990015B747 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		D21D7C7E28AA67B10015B747 /* RootTabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabType.swift; sourceTree = "<group>"; };
+		D21D7C8228AA69940015B747 /* RecruitmentMainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitmentMainScreen.swift; sourceTree = "<group>"; };
+		D21D7C8528AA7C290015B747 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +105,10 @@
 			isa = PBXGroup;
 			children = (
 				D21D7C7728AA639C0015B747 /* App */,
-				D21D7C7628AA63930015B747 /* Model */,
 				D21D7C7528AA638B0015B747 /* View */,
+				D21D7C7628AA63930015B747 /* Model */,
 				D21D7C7428AA637C0015B747 /* DataFlow */,
+				D21D7C8428AA7C100015B747 /* Util */,
 				D21D7C5028AA61FC0015B747 /* Preview Content */,
 			);
 			path = Recruiting;
@@ -145,6 +150,7 @@
 		D21D7C7528AA638B0015B747 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D21D7C8128AA697A0015B747 /* Recruitment */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -173,6 +179,22 @@
 				D21D7C7E28AA67B10015B747 /* RootTabType.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		D21D7C8128AA697A0015B747 /* Recruitment */ = {
+			isa = PBXGroup;
+			children = (
+				D21D7C8228AA69940015B747 /* RecruitmentMainScreen.swift */,
+			);
+			path = Recruitment;
+			sourceTree = "<group>";
+		};
+		D21D7C8428AA7C100015B747 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				D21D7C8528AA7C290015B747 /* Color.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +337,8 @@
 				D21D7C7F28AA67B10015B747 /* RootTabType.swift in Sources */,
 				D21D7C4D28AA61FB0015B747 /* RootView.swift in Sources */,
 				D21D7C4B28AA61FB0015B747 /* RecruitingApp.swift in Sources */,
+				D21D7C8328AA69940015B747 /* RecruitmentMainScreen.swift in Sources */,
+				D21D7C8628AA7C290015B747 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
