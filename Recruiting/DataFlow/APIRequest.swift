@@ -51,15 +51,19 @@ extension APIRequest {
         return URLSession.shared
             .dataTaskPublisher(for: urlRequest)
             .tryMap { element -> Data in
-                // TODO: 後で実装
+                guard let response = element.response as? HTTPURLResponse else {
+                    throw APIError.noResponse
+                }
+
+                guard 200 ..< 300 ~= response.statusCode else {
+                    let message = try? JSONDecoder().decode(APIError.Message.self, from: element.data)
+                    throw APIError.unacceptableStatusCode(response.statusCode, message)
+                }
+
                 return element.data
             }
             .decode(type: Response.self, decoder: JSONDecoder())
-            .mapError { data in
-
-                // TODO: 後で実装
-                data as! APIError
-            }
+            .mapError(mapError)
             .eraseToAnyPublisher()
     }
 
@@ -71,7 +75,7 @@ extension APIRequest {
 
         // urlComponentの生成
         guard var component = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            throw APIError.error
+            throw APIError.failedToCreateComponents(url)
         }
 
         // クエリパラメータの追加
@@ -81,12 +85,16 @@ extension APIRequest {
 
         // urlRequestの生成
         guard var urlRequest = component.url.map({ URLRequest(url: $0) }) else {
-            throw APIError.error
+            throw APIError.failedToCreateURL(component)
         }
         urlRequest.httpMethod = method.localize
         urlRequest.allHTTPHeaderFields = headerFields
 
         return urlRequest
+    }
+
+    func mapError(error: Error) -> APIError {
+        return error as? APIError ?? .other("TODO:")
     }
 }
 
@@ -115,11 +123,35 @@ enum HTTPMethodType: String {
 }
 
 
-// TODO: 後で実装
+// MARK: APIError
 enum APIError: Error, Equatable {
-    case error
+    case failedToCreateComponents(URL)
+    case failedToCreateURL(URLComponents)
+    case noResponse
+    case unacceptableStatusCode(Int, Message?)
+    case parserError(String)
+    case other(String)
+}
 
-    var localizedDescription: String {
-        return "error"
+extension APIError {
+    struct Message: Decodable, Equatable {
+        let documentationURL: URL
+        let errors: Errors
+        let message: String
+
+        struct Errors: Decodable, Equatable {
+            let resource: String
+            let field: String
+            let code: String
+
+            private enum CodingKeys: String, CodingKey {
+                case resource, field, code
+            }
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case documentationURL = "documentation_url"
+            case errors, message
+        }
     }
 }

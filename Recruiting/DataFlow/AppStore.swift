@@ -5,7 +5,7 @@
 import SwiftUI
 import ComposableArchitecture
 
-// MARK: アプリ全体で管理している.
+// MARK: アプリ全体で管理しているStore.
 enum AppStore {
 
     struct State: Equatable {
