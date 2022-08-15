@@ -1,8 +1,5 @@
 //
 //  RecruitingApp.swift
-//  Recruiting
-//
-//  Created by Regolith on 2022/08/15.
 //
 
 import SwiftUI
@@ -11,7 +8,7 @@ import SwiftUI
 struct RecruitingApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }
