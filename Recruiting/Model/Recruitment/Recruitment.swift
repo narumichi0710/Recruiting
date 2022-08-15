@@ -53,7 +53,19 @@ extension Recruitment {
 // MARK: 募集詳細APIモデル
 extension Recruitment {
     struct Detail: Decodable, Equatable {
+        var title: String
+        var company: Company
+        var image: Image
+        var whatDescription: String
+        var whyDescription: String
+        var howDescription: String
 
+        private enum CodingKeys: String, CodingKey {
+            case title, company, image
+            case whatDescription = "what_description"
+            case whyDescription = "why_description"
+            case howDescription = "how_description"
+        }
     }
 }
 
