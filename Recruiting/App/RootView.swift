@@ -11,10 +11,13 @@ struct RootView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             GeometryReader { geo in
+                let tabItemWidth = geo.size.width / CGFloat(RootTabType.allCases.count)
                 NavigationView {
-                    ZStack {
+                    VStack {
                         // コンテント
-                        content(viewStore: viewStore, viewSize: geo.size)
+                        content(viewStore: viewStore)
+                        // タブバー
+                        tabBar(viewStore: viewStore, tabItemWidth: tabItemWidth)
                     }
                     .navigationBarHidden(true)
                 }
@@ -22,13 +25,12 @@ struct RootView: View {
         }
     }
 
-    /// コンテント
-    private func content(
-        viewStore: ViewStore<AppStore.State, AppStore.Action>,
-        viewSize: CGSize
-    ) -> some View {
+    /// コンテント.
+    /// - Parameter viewStore: viewStore.
+    /// - Returns: View.
+    private func content(viewStore: ViewStore<AppStore.State, AppStore.Action>) -> some View {
         VStack {
-            /// タブコンテント
+            // タブコンテント
             switch viewStore.selectedRootTab {
             case .recruitment:
                 RecruitmentMainScreen(
@@ -50,34 +52,36 @@ struct RootView: View {
                     Spacer()
                 }
             }
-
             Spacer()
-
-            // タブバー
-            tabBar(
-                viewStore: viewStore,
-                tabItemWidth: viewSize.width / CGFloat(RootTabType.allCases.count)
-            )
         }
     }
 
-
     /// タブバー.
+    /// - Parameters:
+    ///   - viewStore: viewStore.
+    ///   - tabItemWidth: タブ1つの横幅.
+    /// - Returns: View.
     private func tabBar(
         viewStore: ViewStore<AppStore.State, AppStore.Action>,
         tabItemWidth: CGFloat
     ) -> some View {
         HStack(spacing: 0) {
             ForEach(RootTabType.allCases, id: \.self) { type in
-                Image(systemName: type.toIconName)
-                    .foregroundColor(viewStore.selectedRootTab == type ? Color.primary : Color.secondary)
-                    .frame(width: tabItemWidth, height: 48)
-                    .onTapGesture {
-                        viewStore.send(.changedRootTab(type), animation: .default)
-                    }
+                VStack {
+                    Image(systemName: type.toIconName)
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(viewStore.selectedRootTab == type ? Color.primary : Color.secondary)
+                }
+                .frame(width: tabItemWidth)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    // タブの更新処理
+                    viewStore.send(.changedRootTab(type), animation: .easeInOut)
+                }
             }
-            Spacer()
         }
+        .frame(height: 48)
     }
 }
 

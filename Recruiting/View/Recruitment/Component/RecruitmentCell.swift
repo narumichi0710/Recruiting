@@ -30,7 +30,7 @@ struct RecruitmentCell: View {
 
             if let image = cell.company?.avatar?.original, let companyName = cell.company?.name {
                 HStack {
-                    // サムネイル
+                    // 会社アイコン
                     AsyncImage(url: URL(string: image)) { image in
                         image
                             .resizable()

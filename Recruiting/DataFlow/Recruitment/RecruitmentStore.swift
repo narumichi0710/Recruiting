@@ -20,7 +20,7 @@ enum RecruitmentStore {
         var recruitmentsDetail: RecruitmentModel.Detail? = nil
         /// 選択中の募集.
         var selectedCell: Bindable<RecruitmentModel.Cell> = Bindable(nil)
-        /// 表示しているページ
+        /// 表示中のページ
         var currentPageNo: Int = 1
         /// エラーステータス
         var errorStatus: Bindable<String> = Bindable(nil)

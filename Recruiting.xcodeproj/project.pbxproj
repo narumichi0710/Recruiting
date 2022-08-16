@@ -159,7 +159,6 @@
 				D21D7C7B28AA65990015B747 /* AppStore.swift */,
 				D21D7C8D28AA90400015B747 /* RecruitmentClient.swift */,
 				D21D7C8B28AA8D320015B747 /* RecruitmentStore.swift */,
-				D21D7C8F28AA91630015B747 /* APIRequest.swift */,
 			);
 			path = DataFlow;
 			sourceTree = "<group>";
@@ -212,6 +211,7 @@
 		D21D7C8428AA7C100015B747 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				D21D7C8F28AA91630015B747 /* APIRequest.swift */,
 				D21D7C8528AA7C290015B747 /* Color.swift */,
 				D21D7C9528AAA7000015B747 /* Bindable.swift */,
 			);
