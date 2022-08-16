@@ -10,7 +10,7 @@ struct RecruitmentCell: View {
     var body: some View {
         VStack(spacing: 8) {
             // 会社写真
-            if let imageUrl = URL(string: cell.image.original) {
+            if let image = cell.image?.original, let imageUrl = URL(string: image) {
                 AsyncImage(url: imageUrl) { image in
                     image
                         .resizable()
@@ -20,13 +20,15 @@ struct RecruitmentCell: View {
                 }
             }
             // タイトル
-            HStack {
-                Text(cell.title)
-                    .font(.body)
-                Spacer()
+            if let title = cell.title {
+                HStack {
+                    Text(title)
+                        .font(.body)
+                    Spacer()
+                }
             }
 
-            if let image = cell.company.avatar.original {
+            if let image = cell.company?.avatar?.original, let companyName = cell.company?.name {
                 HStack {
                     // サムネイル
                     AsyncImage(url: URL(string: image)) { image in
@@ -40,10 +42,9 @@ struct RecruitmentCell: View {
                     .frame(width: 32, height: 32)
 
                     // 会社名
-                    Text(cell.company.name)
+                    Text(companyName)
                         .font(.subheadline)
                         .foregroundColor(Color.secondary)
-
                     Spacer()
                 }
             }

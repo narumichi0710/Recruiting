@@ -24,6 +24,8 @@ enum RecruitmentStore {
         var currentPageNo: Int = 1
         /// エラーステータス
         var errorStatus: Bindable<String> = Bindable(nil)
+        /// 募集一覧取得時のデータ新規作成フラグ
+        var isCreateNewRecruitments: Bool = true
     }
     enum Action: Equatable {
         /// 募集一覧レスポンス.
@@ -50,20 +52,19 @@ enum RecruitmentStore {
             // 募集一覧取得レスポンス.
             switch result {
             case .success(let response):
-                // ページNoが更新されている場合の処理
-                if response.metaDeta.perPage < state.currentPageNo {
-                    response.items.indices.forEach { index in
-                        state.recruitments?.items.insert(response.items[index], at: index)
-                    }
-                    state.recruitments?.metaDeta = response.metaDeta
-                } else {
+                // 文字検索の場合はデータ差し替え、ページ更新の場合はデータを上書きする.
+                if state.isCreateNewRecruitments {
                     state.recruitments = response
+                } else {
+                    state.recruitments?.items?.append(contentsOf: response.items ?? [])
+                    state.recruitments?.metaDeta = response.metaDeta
                 }
                 return .none
             case .failure(let errorResponse):
                 state.errorStatus = Bindable(errorResponse.localize)
                 return .none
             }
+
         case .responseRecruitmentDetail(let result):
             // 募集詳細取得レスポンス.
             switch result {
@@ -74,6 +75,7 @@ enum RecruitmentStore {
                 state.errorStatus = Bindable(errorResponse.localize)
                 return .none
             }
+
         case .getRecruitments:
             // 募集一覧取得処理.
             return env.recruitmentClient.list(
@@ -83,11 +85,11 @@ enum RecruitmentStore {
             .cancellable(id: State.CancelID())
 
         case .getRecruitmentDetail:
+            // 募集詳細取得処理.
             guard let cellId = state.selectedCell.item?.id else {
                 state.errorStatus = Bindable(APIError.serverError.localize)
                 return .none
             }
-            // 募集詳細取得処理.
             return env.recruitmentClient.detail(
                 .init(id: cellId)
             )
@@ -96,6 +98,7 @@ enum RecruitmentStore {
 
         case .changedSearchWord(let value):
             // 検索ワード更新処理.
+            state.isCreateNewRecruitments = true
             state.searchWord = value
             return .none
 
@@ -107,13 +110,17 @@ enum RecruitmentStore {
                 state.selectedCell = Bindable(selectedCell)
             }
             return .none
+
         case .updatePageNo:
             // ページNo更新処理
-            if state.currentPageNo != state.recruitments?.metaDeta.totalPages {
+            if let totalPages = state.recruitments?.metaDeta?.totalPages, totalPages > state.currentPageNo {
+                state.isCreateNewRecruitments = false
                 state.currentPageNo += 1
+                return Effect(value: .getRecruitments).eraseToEffect()
+            } else {
+                return .none
             }
-            return Effect(value: .getRecruitments)
-                .eraseToEffect()
+
         case .changeErrorState:
             // エラーステータス更新処理
             state.errorStatus = Bindable(nil)

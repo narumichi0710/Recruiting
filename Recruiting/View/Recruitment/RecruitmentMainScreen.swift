@@ -61,21 +61,24 @@ struct RecruitmentMainScreen: View {
             Spacer()
 
             // 検索結果リスト
-            if let recruitments = viewStore.recruitments {
+            if let recruitments = viewStore.recruitments,
+               let items = recruitments.items,
+               let totalCount = recruitments.metaDeta?.totalObjects
+            {
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
                         HStack {
                             Spacer()
-                            Text("検索結果: \(recruitments.metaDeta.totalObjects)件")
+                            Text("検索結果: \(totalCount)件")
                                 .font(.subheadline)
                                 .foregroundColor(Color.secondary)
                                 .padding(.horizontal)
                         }
-                        ForEach(recruitments.items) { cell in
+                        ForEach(items) { cell in
                             RecruitmentCell(cell: cell)
                                 .padding()
                                 .onAppear {
-                                    if recruitments.items.last?.id == cell.id {
+                                    if items.last?.id == cell.id {
                                         // 次のページの読み込み処理
                                         viewStore.send(.updatePageNo)
                                     }
@@ -85,9 +88,6 @@ struct RecruitmentMainScreen: View {
                                 }
                             Divider()
                         }
-                    }
-                    .refreshable {
-                        viewStore.send(.getRecruitments)
                     }
                 }
             } else {
