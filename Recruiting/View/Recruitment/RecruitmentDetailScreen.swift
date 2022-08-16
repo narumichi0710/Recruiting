@@ -25,7 +25,7 @@ struct RecruitmentDetailScreen: View {
                 }
                 .padding()
 
-                if let detail = viewStore.recruitmentsDetail?.item, let selectedCell = viewStore.selectedCell.selectdItem {
+                if let detail = viewStore.recruitmentsDetail?.item, let selectedCell = viewStore.selectedCell.item {
 
                     RecruitmentCell(cell: selectedCell)
                         .padding()
@@ -39,14 +39,16 @@ struct RecruitmentDetailScreen: View {
                     Text(detail.howDescription)
                         .padding()
                 }
-
                 Spacer()
-
             }
         }
+        .alert(
+            viewStore.errorStatus.item ?? "",
+            isPresented: viewStore.binding(get: \.errorStatus.flag, send: RecruitmentStore.Action.changeErrorState),
+            actions: {}
+        )
         .onAppear {
             // 募集詳細データの取得
-
             viewStore.send(.getRecruitmentDetail)
         }
     }

@@ -27,7 +27,7 @@ struct RecruitmentMainScreen: View {
     /// ナビゲーション
     private func navigation(_ viewStore: ViewStore<RecruitmentStore.State, RecruitmentStore.Action>) -> some View {
         NavigationLink("", isActive: viewStore.binding(
-            get: \.selectedCell.isSelected,
+            get: \.selectedCell.flag,
             send: RecruitmentStore.Action.presentRecDetail(nil)
         )){
             // 募集詳細画面に遷移
