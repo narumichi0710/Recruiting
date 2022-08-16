@@ -17,6 +17,11 @@ struct RecruitmentMainScreen: View {
                 // コンテンツ
                 content(viewStore)
             }
+            .alert(
+                viewStore.errorStatus.item ?? "",
+                isPresented: viewStore.binding(get: \.errorStatus.flag, send: RecruitmentStore.Action.changeErrorState),
+                actions: {}
+            )
             .onAppear {
                 // 募集一覧の取得
                 viewStore.send(.getRecruitments)

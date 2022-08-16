@@ -54,16 +54,18 @@ extension APIRequest {
                 guard let response = element.response as? HTTPURLResponse else {
                     throw APIError.noResponse
                 }
-
                 guard 200 ..< 300 ~= response.statusCode else {
-                    let message = try? JSONDecoder().decode(APIError.Message.self, from: element.data)
-                    throw APIError.unacceptableStatusCode(response.statusCode, message)
+                    let errorResponse = try? JSONDecoder().decode(APIError.Message.self, from: element.data)
+                    print("API Error: \(errorResponse?.message ?? "")")
+                    throw APIError.serverError(response.statusCode)
                 }
 
                 return element.data
             }
             .decode(type: Response.self, decoder: JSONDecoder())
-            .mapError(mapError)
+            .mapError { error in
+                error as? APIError ?? .serverError(nil)
+            }
             .eraseToAnyPublisher()
     }
 
@@ -75,7 +77,8 @@ extension APIRequest {
 
         // urlComponentの生成
         guard var component = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            throw APIError.failedToCreateComponents(url)
+            print(url, "URLComponents Create Error: \(url)")
+            throw APIError.serverError(nil)
         }
 
         // クエリパラメータの追加
@@ -85,16 +88,13 @@ extension APIRequest {
 
         // urlRequestの生成
         guard var urlRequest = component.url.map({ URLRequest(url: $0) }) else {
-            throw APIError.failedToCreateURL(component)
+            print(url, "URLRequest Create Error: \(component)")
+            throw APIError.serverError(nil)
         }
         urlRequest.httpMethod = method.localize
         urlRequest.allHTTPHeaderFields = headerFields
 
         return urlRequest
-    }
-
-    func mapError(error: Error) -> APIError {
-        return error as? APIError ?? .other("TODO:")
     }
 }
 
@@ -122,17 +122,25 @@ enum HTTPMethodType: String {
     }
 }
 
-
-// MARK: APIError
+// MARK: APIError Localize
 enum APIError: Error, Equatable {
-    case failedToCreateComponents(URL)
-    case failedToCreateURL(URLComponents)
+    case serverError(Int?)
     case noResponse
-    case unacceptableStatusCode(Int, Message?)
-    case parserError(String)
     case other(String)
+
+    var localize: String? {
+        switch self {
+        case .serverError(_):
+            return "サーバーエラーが発生しました。"
+        case .noResponse:
+            return "サーバーからの応答がありません。少し時間を置いてから再度アクセスしてください。"
+        default:
+            return nil
+        }
+    }
 }
 
+// MARK: APIError ログ取得用モデル
 extension APIError {
     struct Message: Decodable, Equatable {
         let documentationURL: URL
@@ -148,7 +156,6 @@ extension APIError {
                 case resource, field, code
             }
         }
-
         private enum CodingKeys: String, CodingKey {
             case documentationURL = "documentation_url"
             case errors, message
