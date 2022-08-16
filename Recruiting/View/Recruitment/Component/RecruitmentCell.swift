@@ -10,13 +10,14 @@ struct RecruitmentCell: View {
     var body: some View {
         VStack(spacing: 8) {
             // 会社写真
-            if let image = cell.image.original {
-                AsyncImage(url: URL(string: image)) { image in
-                    image.resizable()
+            if let imageUrl = URL(string: cell.image.original) {
+                AsyncImage(url: imageUrl) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                 } placeholder: {
                     ProgressView()
                 }
-                .aspectRatio(contentMode: .fill)
             }
             // タイトル
             HStack {
@@ -29,7 +30,9 @@ struct RecruitmentCell: View {
                 HStack {
                     // サムネイル
                     AsyncImage(url: URL(string: image)) { image in
-                        image.resizable()
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
                     } placeholder: {
                         ProgressView()
                     }
@@ -45,7 +48,6 @@ struct RecruitmentCell: View {
                 }
             }
         }
-        .padding()
         .contentShape(Rectangle())
     }
 }

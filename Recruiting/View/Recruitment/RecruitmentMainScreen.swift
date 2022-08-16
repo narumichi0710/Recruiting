@@ -19,9 +19,7 @@ struct RecruitmentMainScreen: View {
             }
             .onAppear {
                 // 募集一覧の取得
-                if viewStore.recruitments == nil {
-                    viewStore.send(.getRecruitments)
-                }
+                viewStore.send(.getRecruitments)
             }
         }
     }
@@ -47,7 +45,10 @@ struct RecruitmentMainScreen: View {
                 text: viewStore.binding(
                     get: \.searchWord, send: RecruitmentStore.Action.changedSearchWord
                 )
-            )
+            ) {
+                // 検索結果の取得
+                viewStore.send(.getRecruitments)
+            }
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .keyboardType(.asciiCapable)
             .padding()
@@ -55,22 +56,37 @@ struct RecruitmentMainScreen: View {
             Spacer()
 
             // 検索結果リスト
-            if let items = viewStore.recruitments?.items {
-
-                ScrollView {
-                    VStack {
-                        ForEach(items) { cell in
-                            RecruitmentCell(cell: cell)
-                                .onTapGesture {
-                                    viewStore.send(.presentRecDetail(cell))
-                                }
-
-                            Divider()
+            if let recruitments = viewStore.recruitments {
+                ScrollView(showsIndicators: false) {
+                    LazyVStack {
+                        HStack {
+                            Spacer()
+                            Text("検索結果: \(recruitments.metaDeta.totalObjects)件")
+                                .font(.subheadline)
+                                .foregroundColor(Color.secondary)
+                                .padding(.horizontal)
                         }
+                        ForEach(recruitments.items) { cell in
+                                RecruitmentCell(cell: cell)
+                                    .padding()
+                                    .onAppear {
+                                        if recruitments.items.last?.id == cell.id {
+                                            // 次のページを読み込み
+                                            viewStore.send(.updatePageNo)
+                                        }
+                                    }
+                                    .onTapGesture {
+                                        viewStore.send(.presentRecDetail(cell))
+                                    }
+
+                                Divider()
+                            }
                     }
+
                 }
             } else {
-                Text("検索ワードに一致するユーザーが存在しません。")
+                ProgressView()
+                Spacer()
             }
         }
     }
