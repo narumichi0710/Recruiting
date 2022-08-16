@@ -67,22 +67,23 @@ struct RecruitmentMainScreen: View {
                                 .padding(.horizontal)
                         }
                         ForEach(recruitments.items) { cell in
-                                RecruitmentCell(cell: cell)
-                                    .padding()
-                                    .onAppear {
-                                        if recruitments.items.last?.id == cell.id {
-                                            // 次のページを読み込み
-                                            viewStore.send(.updatePageNo)
-                                        }
+                            RecruitmentCell(cell: cell)
+                                .padding()
+                                .onAppear {
+                                    if recruitments.items.last?.id == cell.id {
+                                        // 次のページの読み込み処理
+                                        viewStore.send(.updatePageNo)
                                     }
-                                    .onTapGesture {
-                                        viewStore.send(.presentRecDetail(cell))
-                                    }
-
-                                Divider()
-                            }
+                                }
+                                .onTapGesture {
+                                    viewStore.send(.presentRecDetail(cell))
+                                }
+                            Divider()
+                        }
                     }
-
+                    .refreshable {
+                        viewStore.send(.getRecruitments)
+                    }
                 }
             } else {
                 ProgressView()
