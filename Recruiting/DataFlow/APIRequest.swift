@@ -56,15 +56,15 @@ extension APIRequest {
                 }
                 guard 200 ..< 300 ~= response.statusCode else {
                     let errorResponse = try? JSONDecoder().decode(APIError.Message.self, from: element.data)
-                    print("API Error: \(errorResponse?.message ?? "")")
-                    throw APIError.serverError(response.statusCode)
+                    print("API Error: \(String(describing: errorResponse?.message)) ErrorCode: \(response.statusCode)")
+                    throw APIError.serverError
                 }
 
                 return element.data
             }
             .decode(type: Response.self, decoder: JSONDecoder())
             .mapError { error in
-                error as? APIError ?? .serverError(nil)
+                error as? APIError ?? .serverError
             }
             .eraseToAnyPublisher()
     }
@@ -78,7 +78,7 @@ extension APIRequest {
         // urlComponentの生成
         guard var component = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             print(url, "URLComponents Create Error: \(url)")
-            throw APIError.serverError(nil)
+            throw APIError.serverError
         }
 
         // クエリパラメータの追加
@@ -89,7 +89,7 @@ extension APIRequest {
         // urlRequestの生成
         guard var urlRequest = component.url.map({ URLRequest(url: $0) }) else {
             print(url, "URLRequest Create Error: \(component)")
-            throw APIError.serverError(nil)
+            throw APIError.serverError
         }
         urlRequest.httpMethod = method.localize
         urlRequest.allHTTPHeaderFields = headerFields
@@ -124,14 +124,14 @@ enum HTTPMethodType: String {
 
 // MARK: APIError Localize
 enum APIError: Error, Equatable {
-    case serverError(Int?)
+    case serverError
     case noResponse
     case other(String)
 
     var localize: String? {
         switch self {
-        case .serverError(_):
-            return "サーバーエラーが発生しました。"
+        case .serverError:
+            return "サーバーエラーが発生しました。 "
         case .noResponse:
             return "サーバーからの応答がありません。少し時間を置いてから再度アクセスしてください。"
         default:

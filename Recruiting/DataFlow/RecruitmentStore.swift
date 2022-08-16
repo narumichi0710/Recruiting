@@ -84,7 +84,7 @@ enum RecruitmentStore {
 
         case .getRecruitmentDetail:
             guard let cellId = state.selectedCell.item?.id else {
-                state.errorStatus = Bindable(APIError.serverError(nil).localize)
+                state.errorStatus = Bindable(APIError.serverError.localize)
                 return .none
             }
             // 募集詳細取得処理.
