@@ -1,35 +1,134 @@
 //
 //  RecruitingTests.swift
-//  RecruitingTests
 //
-//  Created by Regolith on 2022/08/15.
-//
-
 import XCTest
 @testable import Recruiting
+import ComposableArchitecture
+
 
 class RecruitingTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    // MARK: 募集一覧レスポンス成功テスト
+    func testSucceedRecruitmentContents() {
+        // テスト用の依存データ
+        let store = TestStore(
+            initialState: RecruitmentStore.State(),
+            reducer: RecruitmentStore.reducer,
+            environment: AppStore.Environment(
+                recruitmentClient: RecruitmentClient(
+                    list: { request in
+                        Effect(value: RecruitmentModel.mockList)
+                            .receive(on: DispatchQueue.immediate.eraseToAnyScheduler())
+                            .eraseToEffect()
+                    },
+                    detail: { request in
+                        Effect(value: RecruitmentModel.mockDetail)
+                            .receive(on: DispatchQueue.immediate.eraseToAnyScheduler())
+                            .eraseToEffect()
+                    })
+            )
+        )
+        // 募集一覧取得アクション
+        store.send(.getRecruitments)
+        // 受け取るアクション
+        store.receive(.responseRecruitments(.success(RecruitmentModel.mockList))) { response in
+            response.recruitments = RecruitmentModel.mockList
+            response.errorStatus = Bindable<String>(nil)
+        }
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    // MARK: 募集一覧レスポンス失敗テスト
+    func testFairureRecruitmentContents() {
+        // テスト用の依存データ
+        let store = TestStore(
+            initialState: RecruitmentStore.State(),
+            reducer: RecruitmentStore.reducer,
+            environment: AppStore.Environment(
+                recruitmentClient: RecruitmentClient(
+                    list: { request in
+                        Effect(error: .serverError)
+                            .receive(on: DispatchQueue.immediate.eraseToAnyScheduler())
+                            .eraseToEffect()
+                    },
+                    detail: { request in
+                        Effect(error: .serverError)
+                            .receive(on: DispatchQueue.immediate.eraseToAnyScheduler())
+                            .eraseToEffect()
+                    })
+            )
+        )
+        // 募集詳細取得アクション
+        store.send(.getRecruitments)
+        // 受け取るアクション
+        store.receive(.responseRecruitments(.failure(APIError.serverError))) { response in
+            response.recruitments = nil
+            response.errorStatus = Bindable<String>(APIError.serverError.localize)
+        }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        // MARK: 募集詳細レスポンス成功テスト
+        func testSucceedRecruitmentDetail() {
+            // テスト用の依存データ
+            let store = TestStore(
+                initialState: RecruitmentStore.State(),
+                reducer: RecruitmentStore.reducer,
+                environment: AppStore.Environment(
+                    recruitmentClient: RecruitmentClient(
+                        list: { request in
+                            Effect(value: RecruitmentModel.mockList)
+                                .receive(on: DispatchQueue.immediate.eraseToAnyScheduler())
+                                .eraseToEffect()
+                        },
+                        detail: { request in
+                            Effect(value: RecruitmentModel.mockDetail)
+                                .receive(on: DispatchQueue.immediate.eraseToAnyScheduler())
+                                .eraseToEffect()
+                        })
+                )
+            )
+            // セル選択アクション
+            store.send(.presentRecDetail(RecruitmentModel.mockCell)) { store in
+                store.selectedCell = Bindable<RecruitmentModel.Cell>(RecruitmentModel.mockCell)
+            }
+            // 募集詳細取得アクション
+            store.send(.getRecruitmentDetail)
+            // 受け取るアクション
+            store.receive(.responseRecruitmentDetail(.success(RecruitmentModel.mockDetail))) { response in
+                response.recruitmentsDetail = RecruitmentModel.mockDetail
+                response.errorStatus = Bindable<String>(nil)
+            }
+        }
+
+        // MARK: 募集詳細レスポンス失敗テスト
+        func testFairureRecruitmentDetail() {
+            // テスト用の依存データ
+            let store = TestStore(
+                initialState: RecruitmentStore.State(),
+                reducer: RecruitmentStore.reducer,
+                environment: AppStore.Environment(
+                    recruitmentClient: RecruitmentClient(
+                        list: { request in
+                            Effect(error: .serverError)
+                                .receive(on: DispatchQueue.immediate.eraseToAnyScheduler())
+                                .eraseToEffect()
+                        },
+                        detail: { request in
+                            Effect(error: .serverError)
+                                .receive(on: DispatchQueue.immediate.eraseToAnyScheduler())
+                                .eraseToEffect()
+                        })
+                )
+            )
+            // セル選択アクション
+            store.send(.presentRecDetail(RecruitmentModel.mockCell)) { store in
+                store.selectedCell = Bindable<RecruitmentModel.Cell>(RecruitmentModel.mockCell)
+            }
+            // 募集詳細取得アクション
+            store.send(.getRecruitmentDetail)
+            // 受け取るアクション
+            store.receive(.responseRecruitmentDetail(.failure(APIError.serverError))) { response in
+                response.errorStatus = Bindable<String>(APIError.serverError.localize)
+            }
         }
     }
 
