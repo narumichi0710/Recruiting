@@ -156,9 +156,8 @@
 		D21D7C7428AA637C0015B747 /* DataFlow */ = {
 			isa = PBXGroup;
 			children = (
+				D21D7C9928ABFB230015B747 /* Recruitment */,
 				D21D7C7B28AA65990015B747 /* AppStore.swift */,
-				D21D7C8D28AA90400015B747 /* RecruitmentClient.swift */,
-				D21D7C8B28AA8D320015B747 /* RecruitmentStore.swift */,
 			);
 			path = DataFlow;
 			sourceTree = "<group>";
@@ -182,20 +181,12 @@
 		D21D7C7728AA639C0015B747 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				D21D7C7D28AA67900015B747 /* Component */,
 				D21D7C4E28AA61FC0015B747 /* Assets.xcassets */,
+				D21D7C7E28AA67B10015B747 /* RootTabType.swift */,
 				D21D7C4C28AA61FB0015B747 /* RootView.swift */,
 				D21D7C4A28AA61FB0015B747 /* RecruitingApp.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		D21D7C7D28AA67900015B747 /* Component */ = {
-			isa = PBXGroup;
-			children = (
-				D21D7C7E28AA67B10015B747 /* RootTabType.swift */,
-			);
-			path = Component;
 			sourceTree = "<group>";
 		};
 		D21D7C8128AA697A0015B747 /* Recruitment */ = {
@@ -232,6 +223,15 @@
 				D21D7C9328AAA5520015B747 /* RecruitmentCell.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		D21D7C9928ABFB230015B747 /* Recruitment */ = {
+			isa = PBXGroup;
+			children = (
+				D21D7C8B28AA8D320015B747 /* RecruitmentStore.swift */,
+				D21D7C8D28AA90400015B747 /* RecruitmentClient.swift */,
+			);
+			path = Recruitment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
