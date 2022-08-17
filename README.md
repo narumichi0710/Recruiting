@@ -68,3 +68,13 @@ API等のやり取りはEnviroment経由で行う。Storeの生成時に必要�
 
 <img width="490" alt="スクリーンショット 2022-08-17 3 14 08" src="https://user-images.githubusercontent.com/65114797/184949962-83a85f2a-b47c-4660-95d1-d9c040dfbdb8.png">
 
+**募集一覧のUI**
+
+https://user-images.githubusercontent.com/65114797/185024702-4509988f-c9ce-42e9-83f0-4b6a38b53a7a.mov
+
+**募集詳細のUI**
+
+https://user-images.githubusercontent.com/65114797/185025044-3f9c0976-59a7-45a0-8879-95c14a5cf54f.mov
+
+
+
