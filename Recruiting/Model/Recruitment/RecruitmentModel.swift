@@ -79,14 +79,12 @@ extension RecruitmentModel {
 }
 
 
-
 extension RecruitmentModel {
     // MARK: 募集一覧モックデータ
     static let mockList = List(
         metaDeta: Meta(totalObjects: 100, perPage: 1, totalPages: 10),
         items: [mockCell_1]
     )
-
     // MARK: 募集一覧更新モックデータ
     static let mockCell_1 = Cell(
             id: 1, title: "sample1",

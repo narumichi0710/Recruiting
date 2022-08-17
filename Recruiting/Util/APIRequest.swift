@@ -74,18 +74,15 @@ extension APIRequest {
     func getUrlRequest() throws -> URLRequest {
         // Pathの追加
         let url = baseURL.appendingPathComponent(path)
-
         // urlComponentの生成
         guard var component = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             print(url, "URLComponents Create Error: \(url)")
             throw APIError.serverError
         }
-
         // クエリパラメータの追加
         component.queryItems = queryParameters.compactMap {
             URLQueryItem(name: $0.key, value: "\($0.value)")
         }
-
         // urlRequestの生成
         guard var urlRequest = component.url.map({ URLRequest(url: $0) }) else {
             print(url, "URLRequest Create Error: \(component)")
@@ -131,9 +128,9 @@ enum APIError: Error, Equatable {
     var localize: String? {
         switch self {
         case .serverError:
-            return "サーバーエラーが発生しました。 "
+            return "サーバーエラーが発生しました。"
         case .noResponse:
-            return "サーバーからの応答がありません。少し時間を置いてから再度アクセスしてください。"
+            return "サーバーからの応答がありません。少し時間を置いてからアクセスしてください。"
         default:
             return nil
         }
